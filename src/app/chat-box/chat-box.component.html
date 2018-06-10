@@ -1,0 +1,35 @@
+<div class="chatbox">
+	<ul class="chatbox__button-box">
+		<button *ngFor="let commandButton of commandButtons"
+			class="button-box__item"
+			(click)="setCommand(commandButton.command)"
+			[class.button-box__item--selected]="commandButton.command === currentCommand"
+		>
+			{{ commandButton.name }}
+		</button>
+		<button 
+			class="button-box__item"
+			(click)="clearCommand(); this.toggleState(); this.validateText()"
+		>clear command</button>
+	</ul>
+	<section class="chatbox__foo">
+		<ul #messageUl id="chatbox__message-box" class="chatbox__message-box" [@chatboxState]="this.state">
+			<li class="message-box__item" *ngFor="let message of messages" [@flyIn]="this.state">
+				<p class="message-box__item--name" [@textState]="this.state" >{{ message.messenger }}</p>
+				<p class="message-box__item--text" [@textState]="this.state" >{{ message.text }}</p>
+			</li>
+		</ul>
+		<section class="chatbox__input-box" [@chatboxState]="this.state">
+			<textarea
+				type="text"
+				class="input-box__inputfield"
+				[(ngModel)]="inputText"
+				(keydown.enter)="validateText()"
+				[@inputfieldState]="this.state"
+			>
+			</textarea>
+		</section>
+	</section>
+</div>
+
+<canvas #canvas (mousemove)="this.EmitPost($event)" id="myCanvas" width="500" height="300" style="border:1px solid #000000;"></canvas>

@@ -1,0 +1,138 @@
+.chatbox {
+	display: flex;
+	flex-direction: row;
+	width: 500px;
+	height: 100%;
+}
+
+.chatbox__button-box {
+	display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-direction: column;
+	grid-column: 1;
+	grid-row: 1 / span 10;
+	margin: 0;
+	padding: 0;
+    list-style-type: none;
+	background-color: #2f3136;
+}
+
+.button-box__item {
+	width: 85%;
+	height: fit-content;
+	color: white;
+	font-size: 16px;
+	outline: none;
+	margin-top: 10px;
+	border: 3px solid rgb(107, 107, 107);
+	background-color: rgb(80, 80, 80);
+	transition: all 0.5s;
+}
+
+.button-box__item--selected {
+	border-color: #7289da;
+	background-color: rgb(114, 114, 114);
+}
+
+.chatbox__foo {
+	width: 100%;
+}
+
+.chatbox__message-box {
+	display: flex;
+	align-items: center;
+	flex-direction: column;
+	margin: 0;
+	padding: 0;
+	height: 90%;
+	background-color: #36393e;
+	list-style-type: none;
+	overflow: auto;
+	word-break: break-all;
+	overflow-x: hidden;
+    overflow-y: auto;
+}
+
+.message-box__item {
+	border-bottom: 1px solid #565656;
+	margin-top: 15px;
+	padding-top: 20px;
+	width: 85%;
+	height: fit-content;
+	color: white;
+}
+
+.message-box__item:first-child { 
+	border-top: 1px solid #565656;
+}
+
+.message-box__item--name {
+	font-size: 18px;
+	color: white;
+	margin: 0;
+}
+
+.message-box__item--text {
+	font-size: 16px;
+	color: #a6a6a6;
+	margin-bottom: 10px;
+}
+
+/* .message-box__item:first-child { 
+    border-radius: 10px 0 0 0;
+}
+
+.message-box__item:last-child { 
+    border-radius: 0 0 0 10px;
+}
+
+.message-box__item:not(:first-child):not(:last-child) {
+	border-top: 5px solid rgb(162, 0, 255);
+}
+
+.message-box__item:nth-last-child(2) {
+    border-bottom: 5px solid rgb(162, 0, 255);
+}  */
+
+.chatbox__input-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 10%;
+	background-color: #36393e;
+}
+
+.input-box__inputfield {
+	width: 85%;
+	height: 80%;
+	max-height: inherit;
+	border-radius: 15px;
+	font-size: 18px;
+	resize: none;
+	border: none;
+	outline: none;
+	padding: 0 15px;
+	background-color: #484c52;
+	color: white;
+}
+
+.input-box__send {
+	outline: none;
+	width: 25%;
+	height: 100%;
+	cursor: pointer;
+	background-color: rgb(162, 0, 255);
+	border: none;
+	color: white;
+	font-size: 15px;
+	transition: .5s;
+}
+
+.input-box__send:hover { 
+    background-color: rgb(189, 75, 255);
+}
+
+.input-box__send:active { 
+	background-color: rgb(138, 1, 218);
+}

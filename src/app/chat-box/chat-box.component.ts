@@ -93,7 +93,7 @@ export class ChatBoxComponent implements OnInit {
 				this[respons.command](respons);
 			}else{
 				console.log(respons.data);
-				this.createMessage(respons.data, respons.messenger);
+				this.createMessage(respons);
 			}
 		};
 

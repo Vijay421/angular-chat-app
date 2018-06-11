@@ -8,12 +8,14 @@ import { AppComponent } from './app.component';
 import { TestPageComponent } from './test-page/test-page.component';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
 import { FormsModule } from '@angular/forms';
+import { CanvasComponent } from './canvas/canvas.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     TestPageComponent,
-    ChatBoxComponent
+    ChatBoxComponent,
+    CanvasComponent
   ],
   imports: [
     BrowserModule,

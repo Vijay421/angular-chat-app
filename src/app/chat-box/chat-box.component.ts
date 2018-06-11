@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, ElementRef, ViewChild } from '@angular/core';
 import { trigger, state, style, animate, transition, keyframes } from '@angular/animations';
+import { UserInputService } from './../user-input.service';
 
 @Component({
   selector: 'app-chat-box',
@@ -68,12 +69,11 @@ export class ChatBoxComponent implements OnInit {
 	private state:string = 'inactive';
 	private color:string = 'grey';
 	@ViewChild('canvas') private canvas:any;
-	private canvansPos:DOMRect;
+	private canvansPos:any;
 	private ctx:any;
 	@ViewChild('messageUl') private messageUl:ElementRef;
 
-	constructor() {
-		window['ws'] = this.websocket;
+	constructor(private userInput: UserInputService) {
 		this.commandButtons.push({
 			name: 'set name',
 			command: 'setName'
@@ -103,37 +103,46 @@ export class ChatBoxComponent implements OnInit {
 	}
 
 	ngOnInit() {
-		this.ctx = this.canvas.nativeElement.getContext('2d');
+		this.userInput.canvas.subscribe(data => {
+			try{
+				this.canvas = data;
+				this.ctx = this.canvas.getContext('2d');
+				console.log(this.canvas);
+			}catch(e){}
+		});
+		this.userInput.currentData.subscribe(data => {
+			data['color'] = this. color;
+			try{
+				this.EmitPost(data);
+			}catch(e){}
+		});
 	}
 
 	CreateNewGame({port}){
 		console.log(`New game on port ${port}`);
 		this.gameSocket = new WebSocket(`ws://localhost:${port}`);
-		window['gameSocket'] = this.gameSocket;
 
 		this.gameSocket.onmessage = ev => {
 			const respons = JSON.parse(ev.data);
 			this.color = respons.color;
-			console.log(respons);
 		};
 	}
 
-	EmitPost(event){
+	EmitPost({x, y, color}:any){
 		try{
 			this.gameSocket.send(JSON.stringify({
-				x: event.x, 
-				y: event.y,
+				x,
+				y,
 				command: 'EmitMousePos'
 			}));
-		}catch(e){}
-		const param = {x: event.x, y: event.y, color: this.color}; 
-		this.draw(param);
+		}catch(e){} 
+		this.draw({x, y, color});
 	}
 
-	draw({x, y, color}){
-		this.canvansPos = this.canvas.nativeElement.getBoundingClientRect();
+	draw({x, y, color = this.color}){
+		const canvansPos = this.canvas.getBoundingClientRect();
 		this.ctx.beginPath();
-		this.ctx.arc(x  - this.canvansPos.left, y - this.canvansPos.top, 10, 0, 2 * Math.PI, false);
+		this.ctx.arc(x  - canvansPos.left, y - canvansPos.top, 10, 0, 2 * Math.PI, false);
 		this.ctx.fillStyle = color;
 		this.ctx.fill();
 		this.ctx.lineWidth = 5;

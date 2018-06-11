@@ -1,7 +1,7 @@
 .chatbox {
 	display: flex;
 	flex-direction: row;
-	width: 500px;
+	/* width: 500px; */
 	height: 100%;
 }
 
@@ -135,4 +135,9 @@
 
 .input-box__send:active { 
 	background-color: rgb(138, 1, 218);
+}
+
+.canvas {
+	border:1px solid #000000;
+
 }
